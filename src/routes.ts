@@ -20,8 +20,8 @@ router.get("/api/clientes/:cpf", ClienteController.cliente);
  * Endpoints (rotas) para Medicamentos
  */
 router.get("/api/medicamentos", MedicamentoController.todos);
-router.get("/api/medicamentos/nome/:nome", MedicamentoController.listarMedicamentoNome);
-router.get("/api/medicamentos/principio/:principioAtivo", MedicamentoController.listarMedicamentoPrincipioAtivo);
+router.get("/api/medicamentos/nome/:nome", MedicamentoController.nomeMedicamento);
+router.get("/api/medicamentos/principio/:principioAtivo", MedicamentoController.principioMedicamento);
 router.post("/api/medicamentos", MedicamentoController.cadastrarMedicamento);
 
 export { router }; // Exporta o roteador
