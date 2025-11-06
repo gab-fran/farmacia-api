@@ -4,7 +4,6 @@ import { DatabaseModel } from "./DatabaseModel.js";
 const database = new DatabaseModel().pool;
 
 class Medicamento {
-
     private idMedicamento: number = 0;
     private nome: string;
     private fabricante: string;
@@ -94,14 +93,15 @@ class Medicamento {
                 listaDeMedicamentos.push(novoMedicamento);
             });
             return listaDeMedicamentos;
-
         } catch (error) {
             console.error(`Erro na consulta ao banco de dados. ${error}`);
             return null;
         }
     }
 
-    static async cadastrarMedicamento(medicamento: MedicamentoDTO): Promise<boolean> {
+    static async cadastrarMedicamento(
+        medicamento: MedicamentoDTO
+    ): Promise<boolean> {
         try {
             const queryInsertMedicamento = `INSERT INTO Medicamento (nome, fabricante, principio_ativo, data_validade, preco)
                 VALUES
@@ -113,11 +113,13 @@ class Medicamento {
                 medicamento.fabricante,
                 medicamento.principioAtivo,
                 medicamento.dataValidade,
-                medicamento.preco
+                medicamento.preco,
             ]);
 
             if (respostaBD.rows.length > 0) {
-                console.info(`Medicamento cadastrado com sucesso. ID: ${respostaBD.rows[0].id_medicamento}`);
+                console.info(
+                    `Medicamento cadastrado com sucesso. ID: ${respostaBD.rows[0].id_medicamento}`
+                );
                 return true;
             }
 
@@ -128,7 +130,9 @@ class Medicamento {
         }
     }
 
-    static async listarMedicamentoNome(nome: string): Promise<Medicamento | null> {
+    static async listarMedicamentoNome(
+        nome: string
+    ): Promise<Medicamento | null> {
         try {
             const querySelectMedicamento = `SELECT * FROM Medicamento WHERE nome = $1;`;
             const respostaBD = await database.query(querySelectMedicamento, [nome]);
@@ -153,10 +157,14 @@ class Medicamento {
         }
     }
 
-        static async listarMedicamentoPrincipioAtivo(principioAtivo: string): Promise<Medicamento | null> {
+    static async listarMedicamentoPrincipioAtivo(
+        principioAtivo: string
+    ): Promise<Medicamento | null> {
         try {
             const querySelectMedicamento = `SELECT * FROM Medicamento WHERE principio_ativo = $1;`;
-            const respostaBD = await database.query(querySelectMedicamento, [principioAtivo]);
+            const respostaBD = await database.query(querySelectMedicamento, [
+                principioAtivo,
+            ]);
 
             if (respostaBD.rowCount != 0) {
                 const medicamento: Medicamento = new Medicamento(

@@ -1,5 +1,5 @@
-import pg from 'pg';
-import dotenv from 'dotenv';
+import pg from "pg";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -7,7 +7,6 @@ dotenv.config();
  * Classe que representa o modelo de banco de dados.
  */
 export class DatabaseModel {
-    
     /**
      * Configuração para conexão com o banco de dados
      */
@@ -35,8 +34,8 @@ export class DatabaseModel {
             password: process.env.DB_PASSWORD,
             port: process.env.DB_PORT,
             max: 10,
-            idleTimoutMillis: 10000
-        }
+            idleTimoutMillis: 10000,
+        };
 
         // Inicialização do pool de conexões
         this._pool = new pg.Pool(this._config);
@@ -54,13 +53,13 @@ export class DatabaseModel {
         try {
             // Tenta conectar ao banco de dados
             await this._client.connect();
-            console.log('Database connected!');
+            console.log("Database connected!");
             // Encerra a conexão
             this._client.end();
             return true;
         } catch (error) {
             // Em caso de erro, exibe uma mensagem de erro
-            console.log('Error to connect database X( ');
+            console.log("Error to connect database X( ");
             console.log(error);
             // Encerra a conexão
             this._client.end();

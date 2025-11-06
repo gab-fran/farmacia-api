@@ -4,7 +4,6 @@ import { DatabaseModel } from "./DatabaseModel.js";
 const database = new DatabaseModel().pool;
 
 class Cliente {
-
     private idCliente: number = 0;
     private nome: string;
     private cpf: string;
@@ -94,7 +93,6 @@ class Cliente {
                 listaDeClientes.push(novoCliente);
             });
             return listaDeClientes;
-
         } catch (error) {
             console.error(`Erro na consulta ao banco de dados. ${error}`);
             return null;
@@ -113,11 +111,13 @@ class Cliente {
                 cliente.cpf,
                 cliente.dataNascimento,
                 cliente.telefone,
-                cliente.email
+                cliente.email,
             ]);
 
             if (respostaBD.rows.length > 0) {
-                console.info(`Cliente cadastrado com sucesso. ID: ${respostaBD.rows[0].id_cliente}`);
+                console.info(
+                    `Cliente cadastrado com sucesso. ID: ${respostaBD.rows[0].id_cliente}`
+                );
                 return true;
             }
 
@@ -143,7 +143,7 @@ class Cliente {
                 );
                 cliente.setIdCliente(respostaBD.rows[0].id_cliente);
 
-                return cliente
+                return cliente;
             }
 
             return null;
